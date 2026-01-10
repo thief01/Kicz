@@ -1,0 +1,6 @@
+@KichBackendApp_HostAddress = http://localhost:5124
+
+GET {{KichBackendApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
