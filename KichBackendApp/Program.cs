@@ -42,9 +42,6 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
         };
     });
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -54,6 +51,31 @@ builder.Services.AddSwaggerGen(c =>
     { 
         Title = "Kich API", 
         Version = "v1" 
+    });
+    
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,  // <-- ZMIEŃ z ApiKey na Http
+        Scheme = "bearer",                // <-- lowercase "bearer"
+        BearerFormat = "JWT"              // <-- DODAJ to
+    });
+    
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 var app = builder.Build();
@@ -66,6 +88,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"=== REQUEST: {context.Request.Method} {context.Request.Path}");
+    Console.WriteLine($"Authorization header: {context.Request.Headers["Authorization"]}");
+    await next();
+    Console.WriteLine($"Response status: {context.Response.StatusCode}");
+});
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
