@@ -19,11 +19,12 @@ public class Post
         
     }
 
-    public Post(CreatePostDto createPostDto)
+    public Post(CreatePostDto createPostDto, string userId)
     {
         Content = createPostDto.Content;
         ImageUrl = createPostDto.ImageUrl;
         ScheduledFor = createPostDto.ScheduledFor;
+        UserId = userId;
     }
 
     public void UpdateFromDto(UpdatePostDto dto)
