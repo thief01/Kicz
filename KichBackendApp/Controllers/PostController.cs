@@ -30,11 +30,8 @@ public class PostController : ControllerBase
         var posts = await _context.Posts
             .Where(p => p.UserId == userId)
             .Include(p => p.User)
-            .OrderByDescending(p => p.CreatedAt)
-            .Select(p => new PostDto(p))
-            .ToListAsync();
-        
-        return Ok(posts);
+            .OrderByDescending(p => p.CreatedAt).ToListAsync();
+        return Ok(posts.Select(p => new PostDto(p)));
     }
 
     [HttpGet("{id}")]
