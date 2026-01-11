@@ -154,3 +154,4 @@ D:\_Projects\Web\Kich\KichBackendApp\obj\Debug\net9.0\refint\KichBackendApp.dll
 D:\_Projects\Web\Kich\KichBackendApp\obj\Debug\net9.0\KichBackendApp.pdb
 D:\_Projects\Web\Kich\KichBackendApp\obj\Debug\net9.0\KichBackendApp.genruntimeconfig.cache
 D:\_Projects\Web\Kich\KichBackendApp\obj\Debug\net9.0\ref\KichBackendApp.dll
+D:\_Projects\Web\Kich\KichBackendApp\bin\Debug\net9.0\KichBackendApp.staticwebassets.runtime.json

@@ -96,6 +96,7 @@ app.Use(async (context, next) =>
     Console.WriteLine($"Response status: {context.Response.StatusCode}");
 });
 
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
