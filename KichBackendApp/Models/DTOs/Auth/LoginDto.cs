@@ -1,4 +1,4 @@
-﻿namespace KichBackendApp.Models.DTOs;
+﻿namespace KichBackendApp.Models.DTOs.Auth;
 
 public class LoginDto
 {

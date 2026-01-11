@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs;
+using KichBackendApp.Models.DTOs.Profile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

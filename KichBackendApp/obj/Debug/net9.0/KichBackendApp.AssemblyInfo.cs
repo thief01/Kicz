@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KichBackendApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+920b127dbfa086642b7540e8470e3ae9a48626ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d29fa290afdae581990001087676c6ceb0fa9cd1")]
 [assembly: System.Reflection.AssemblyProductAttribute("KichBackendApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KichBackendApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

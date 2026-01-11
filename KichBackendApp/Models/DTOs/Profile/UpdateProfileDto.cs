@@ -1,4 +1,4 @@
-﻿namespace KichBackendApp.Models.DTOs;
+﻿namespace KichBackendApp.Models.DTOs.Profile;
 
 public class UpdateProfileDto
 {

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs;
+using KichBackendApp.Models.DTOs.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
