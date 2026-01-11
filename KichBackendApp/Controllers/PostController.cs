@@ -27,7 +27,7 @@ public class PostController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetMyPosts()
     {
-        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var posts = await _context.Posts
             .Where(p => p.UserId == userId)
@@ -39,7 +39,7 @@ public class PostController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPost(int id)
     {
-        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         var post = await _context.Posts.Where(p => p.UserId == userId)
             .FirstOrDefaultAsync(p => p.Id == id);
@@ -53,26 +53,13 @@ public class PostController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreatePost([FromBody] CreatePostDto postDto)
     {
-        Console.WriteLine("=== POST METHOD START ===");
-        Console.WriteLine($"User.Identity.IsAuthenticated: {User.Identity?.IsAuthenticated}");
-        Console.WriteLine($"User.Identity.Name: {User.Identity?.Name}");
-        Console.WriteLine($"Claims count: {User.Claims.Count()}");
-    
-        foreach (var claim in User.Claims)
-        {
-            Console.WriteLine($"  Claim: {claim.Type} = {claim.Value}");
-        }
-    
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        Console.WriteLine($"UserId: {userId}");
     
         if (userId == null)
         {
-            Console.WriteLine("RETURNING UNAUTHORIZED - userId is null");
             return Unauthorized();
         }
-
-        Console.WriteLine("Creating post...");
+        
         var post = new Post(postDto, userId);
 
         _context.Posts.Add(post);
