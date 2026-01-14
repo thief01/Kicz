@@ -13,6 +13,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://192.168.0.189:5124",
+            "https://192.168.0.189:5124",
+                "http://localhost:5124",
+                "https://localhost:5124",
+                "http://127.0.0.1:5124",
+                "https://127.0.0.1:5124")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
@@ -96,6 +111,7 @@ app.Use(async (context, next) =>
     Console.WriteLine($"Response status: {context.Response.StatusCode}");
 });
 
+app.UseCors("AllowFrontend");
 app.UseStaticFiles();
 
 app.UseAuthentication();
