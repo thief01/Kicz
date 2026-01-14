@@ -10,23 +10,19 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
-
+// CORS - upewnij się że jest przed wszystkim
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://192.168.0.189:5124",
-            "https://192.168.0.189:5124",
-                "http://localhost:5124",
-                "https://localhost:5124",
-                "http://127.0.0.1:5124",
-                "https://127.0.0.1:5124")
+        policy.WithOrigins("http://localhost:3000") 
+            .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowCredentials();
     });
 });
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -40,23 +36,23 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
     {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
-        };
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+    };
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -73,9 +69,9 @@ builder.Services.AddSwaggerGen(c =>
         Description = "JWT Authorization header using the Bearer scheme.",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,  // <-- ZMIEŃ z ApiKey na Http
-        Scheme = "bearer",                // <-- lowercase "bearer"
-        BearerFormat = "JWT"              // <-- DODAJ to
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
     });
     
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -93,16 +89,22 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// WAŻNA KOLEJNOŚĆ:
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// CORS musi być PRZED innymi middleware
+app.UseCors("AllowFrontend");
+
+// Wyłączone HTTPS redirect - OK dla development
+// app.UseHttpsRedirection();
+
 app.Use(async (context, next) =>
 {
     Console.WriteLine($"=== REQUEST: {context.Request.Method} {context.Request.Path}");
@@ -111,8 +113,10 @@ app.Use(async (context, next) =>
     Console.WriteLine($"Response status: {context.Response.StatusCode}");
 });
 
-app.UseCors("AllowFrontend");
 app.UseStaticFiles();
+
+// DODAJ TO - potrzebne dla routingu
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();

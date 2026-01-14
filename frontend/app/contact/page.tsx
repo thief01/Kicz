@@ -1,5 +1,9 @@
+"use client";
 
-export default function Home()
+interface Post{
+    
+}
+export default function Contact()
 {
     return (
         <div>Test</div>

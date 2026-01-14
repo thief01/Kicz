@@ -38,7 +38,8 @@ public class AuthController : ControllerBase
 
         if (!result.Succeeded)
         {
-            return BadRequest(result.Errors);
+            var errors = string.Join(",", result.Errors.Select(e => e.Description));
+            return BadRequest(new {message = errors});
         }
 
         var token = GenerateJwtToken(user);
@@ -57,7 +58,7 @@ public class AuthController : ControllerBase
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
         {
-            return Unauthorized("Invalid credentials");
+            return Unauthorized(new {message = "Invalid credentials"});
         }
         var token = GenerateJwtToken(user);
         return Ok(new AuthResponseDto()
