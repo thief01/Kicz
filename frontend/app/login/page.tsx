@@ -22,7 +22,7 @@ export default function LoginPage() {
             const data = await res.json();
             // data.token to JWT
             localStorage.setItem('token', data.token);
-            router.push('/news');
+            router.push('/feed');
         } else {
             setError('Niepoprawny login lub hasło');
         }
@@ -46,7 +46,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="border p-2 mb-2 w-full"
             />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
                 Login
             </button>
         </form>

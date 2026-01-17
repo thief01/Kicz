@@ -36,6 +36,18 @@ public class PostController : ControllerBase
         return Ok(posts.Select(p => new PostDto(p)));
     }
 
+    [AllowAnonymous]
+    [HttpGet("feed")]
+    public async Task<IActionResult> GetFeed()
+    {
+        var posts = await _context.Posts
+            .Include(p => p.User)  // Żeby mieć dane użytkownika (userDisplayName)
+            .OrderByDescending(p => p.CreatedAt)  // Od najnowszych
+            .ToListAsync();
+        
+        return Ok(posts.Select(p => new PostDto(p)));
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPost(int id)
     {

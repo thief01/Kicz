@@ -10,7 +10,6 @@ public class Post
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? ScheduledFor { get; set; }
     public bool IsPublished { get; set; } = false;
-
     public string UserId { get; set; } = string.Empty;
     public User User { get; set; } = null!;
 
