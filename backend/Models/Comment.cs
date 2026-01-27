@@ -8,6 +8,7 @@ public class Comment
     public int PostId { get; set; }
     public string Content { get; set; }
     public string AuthorName { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public Comment()
     {
@@ -19,5 +20,6 @@ public class Comment
         PostId  = createCommentDto.PostId;
         Content = createCommentDto.Content;
         AuthorName = createCommentDto.Author;
+        CreatedAt = createCommentDto.PublishDate;
     }
 }

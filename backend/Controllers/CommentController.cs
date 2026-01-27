@@ -2,6 +2,7 @@
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs.Comment;
 using KichBackendApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,31 +10,27 @@ namespace KichBackendApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CommentController : ControllerBase
 {
-    private readonly UserManager<User> _userManager;
-    private readonly ApplicationDbContext _context;
     private readonly ICommentService  _commentService;
 
-    public CommentController(UserManager<User> userManager, ApplicationDbContext context,  ICommentService commentService)
+    public CommentController(ICommentService commentService)
     {
-        _userManager = userManager;
-        _context = context;
+        _commentService = commentService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCommentDto createCommentDto)
     {
-        var post = _context.Posts.First(post => post.Id == createCommentDto.PostId);
-        if (post == null)
-        {
-            return NotFound();
-        }
+        var comment = await _commentService.AddComment(createCommentDto);
+        return Ok(comment);
+    }
 
-        var comment = new Comment(createCommentDto);
-        post.Comments.Add(comment);
-        _context.Comments.Add(comment);
-        await _context.SaveChangesAsync();
+    [HttpGet]
+    public async Task<IActionResult> Get(int id)
+    {
+        var comment = await _commentService.GetComment(id);
         return Ok(comment);
     }
 }
