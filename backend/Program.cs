@@ -1,5 +1,6 @@
 using System.Text;
 using KichBackendApp.Data;
+using KichBackendApp.Middleware;
 using KichBackendApp.Models;
 using KichBackendApp.Services;
 using KichBackendApp.Services.Interfaces;
@@ -63,8 +64,6 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
-
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -103,17 +102,17 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// WAŻNA KOLEJNOŚĆ:
+app.UseMiddleware<ErrorHandlingMiddleWare>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// CORS musi być PRZED innymi middleware
+
 app.UseCors("AllowFrontend");
 
-// Wyłączone HTTPS redirect - OK dla development
 // app.UseHttpsRedirection();
 
 app.Use(async (context, next) =>
@@ -125,10 +124,7 @@ app.Use(async (context, next) =>
 });
 
 app.UseStaticFiles();
-
-// DODAJ TO - potrzebne dla routingu
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
