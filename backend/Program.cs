@@ -13,12 +13,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS - upewnij się że jest przed wszystkim
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.SetIsOriginAllowed(_ => true)  // Pozwala na wszystkie origin
+        policy.SetIsOriginAllowed(_ => true) 
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
