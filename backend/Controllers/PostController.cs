@@ -3,6 +3,7 @@ using System.Security.Claims;
 using KichBackendApp.Data;
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs.Post;
+using KichBackendApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,9 @@ public class PostController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<User>  _userManager;
+    private readonly IPostService  _postService;
 
-    public PostController(ApplicationDbContext context, UserManager<User> userManager)
+    public PostController(ApplicationDbContext context, UserManager<User> userManager,  IPostService postService)
     {
         _context = context;
         _userManager = userManager;

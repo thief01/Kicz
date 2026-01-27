@@ -12,6 +12,7 @@ public class Post
     public bool IsPublished { get; set; } = false;
     public string UserId { get; set; } = string.Empty;
     public User User { get; set; } = null!;
+    public List<Comment> Comments { get; set; } = new List<Comment>();
 
     public Post()
     {

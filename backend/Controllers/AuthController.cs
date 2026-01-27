@@ -4,6 +4,7 @@ using System.Text;
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs;
 using KichBackendApp.Models.DTOs.Auth;
+using KichBackendApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -17,11 +18,15 @@ public class AuthController : ControllerBase
 {
     private readonly UserManager<User>  _userManager;
     private readonly IConfiguration _configuration;
+    private readonly IAuthService  _authService;
+    private readonly IJwtService _jwtService;
 
-    public AuthController(UserManager<User> userManager, IConfiguration configuration)
+    public AuthController(UserManager<User> userManager, IConfiguration configuration, IAuthService authService, IJwtService jwtService)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _authService = authService;
+        _jwtService = jwtService;
     }
 
     [HttpPost("register")]
@@ -42,7 +47,7 @@ public class AuthController : ControllerBase
             return BadRequest(new {message = errors});
         }
 
-        var token = GenerateJwtToken(user);
+        var token = _jwtService.GenerateToken(user);
 
         return Ok(new AuthResponseDto()
         {
@@ -60,38 +65,12 @@ public class AuthController : ControllerBase
         {
             return Unauthorized(new {message = "Invalid credentials"});
         }
-        var token = GenerateJwtToken(user);
+        var token = _jwtService.GenerateToken(user);
         return Ok(new AuthResponseDto()
         {
             Token = token,
             Email = dto.Email,
             DisplayName = user.DisplayName!
         });
-    }
-
-    private string GenerateJwtToken(User user)
-    {
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("displayName", user.DisplayName ?? ""),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
-
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        
-        var creds = new SigningCredentials(key,  SecurityAlgorithms.HmacSha256);
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
-            signingCredentials: creds
-        );
-        
-        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
