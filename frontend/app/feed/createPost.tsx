@@ -66,19 +66,17 @@ export default function CreatePost({onPostCreated}: CreatePostProps) {
 
     return (
         <div className="bg-black rounded-lg shadow p-4 mb-6">
-
-
             <form onSubmit={handleSubmit}>
-<textarea
-    value={content}
-    onChange={(e) => setContent(e.target.value)}
-    placeholder="Wklej markdown tutaj..."
-    rows={10}
-    style={{
-        width: '100%',
-        whiteSpace: 'pre-wrap' // Ważne!
-    }}
-/>
+                <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Wklej markdown tutaj..."
+                    rows={10}
+                    style={{
+                        width: '100%',
+                        whiteSpace: 'pre-wrap' // Ważne!
+                    }}
+                />
 
                 {error && (
                     <p className="text-red-500 text-sm mt-2">{error}</p>
