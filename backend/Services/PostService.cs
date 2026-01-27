@@ -38,11 +38,11 @@ public class PostService : IPostService
 
     public async Task<IEnumerable<PostDto>> GetFeed()
     {
-        var pots = await _context.Posts
+        var posts = await _context.Posts
             .Include(p => p.User)
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
-        return  pots.Select(po => new PostDto(po));
+        return  posts.Select(po => new PostDto(po));
     }
 
     public async Task<PostDto> GetPost(int id, string userId)
