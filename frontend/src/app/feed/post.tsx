@@ -6,8 +6,8 @@ interface PostProps {
     createdAt: string;
 }
 import remarkDirective from "remark-directive";
-import  {remarkTwitch} from "@/app/remarkTwitch";
-import {TwitchClip} from "@/app/TwitchClip";
+import  {remarkTwitch} from "@/src/app/remarkTwitch";
+import {TwitchClip} from "@/src/app/TwitchClip";
 import ReactMarkdown from 'react-markdown';
 import {formatDistanceToNow} from 'date-fns';
 import {pl} from 'date-fns/locale';

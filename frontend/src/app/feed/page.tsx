@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Post from '@/app/feed/post';
-import CreatePost from '@/app/feed/createPost';
+import Post from '@/src/app/feed/post';
+import CreatePost from '@/src/app/feed/createPost';
 import {getToken} from "@/src/services/authService";
 
 interface PostType {
