@@ -21,56 +21,22 @@ public class AuthController : ControllerBase
     private readonly IAuthService  _authService;
     private readonly IJwtService _jwtService;
 
-    public AuthController(UserManager<User> userManager, IConfiguration configuration, IAuthService authService, IJwtService jwtService)
+    public AuthController(IAuthService authService)
     {
-        _userManager = userManager;
-        _configuration = configuration;
         _authService = authService;
-        _jwtService = jwtService;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
-        var user = new User()
-        {
-            Email = dto.Email,
-            UserName = dto.Email,
-            DisplayName = dto.DisplayName,
-        };
-
-        var result = await _userManager.CreateAsync(user, dto.Password);
-
-        if (!result.Succeeded)
-        {
-            var errors = string.Join(",", result.Errors.Select(e => e.Description));
-            return BadRequest(new {message = errors});
-        }
-
-        var token = _jwtService.GenerateToken(user);
-
-        return Ok(new AuthResponseDto()
-        {
-            Token = token,
-            Email = user.Email!,
-            DisplayName = user.DisplayName!,
-        });
+        var response = await _authService.RegisterAsync(dto);
+        return Ok(response);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto dto)
     {
-        var user = await _userManager.FindByEmailAsync(dto.Email);
-        if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
-        {
-            return Unauthorized(new {message = "Invalid credentials"});
-        }
-        var token = _jwtService.GenerateToken(user);
-        return Ok(new AuthResponseDto()
-        {
-            Token = token,
-            Email = dto.Email,
-            DisplayName = user.DisplayName!
-        });
+        var response = await _authService.LoginAsync(dto);
+        return Ok(response);
     }
 }
