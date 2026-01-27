@@ -3,7 +3,7 @@
 import {useState} from 'react';
 import MarkdownPost from '@/src/components/MarkdownPost';
 import remarkDirective from "remark-directive";
-import {remarkTwitchPlugin} from "@/lib/remarkTwitchPlugin";
+import {remarkTwitchPlugin} from "@/src/lib/markdown/remarkTwitchPlugin";
 
 interface CreatePostProps {
     onPostCreated?: () => void; // Callback po stworzeniu posta

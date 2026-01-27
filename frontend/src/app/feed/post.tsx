@@ -12,7 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import {formatDistanceToNow} from 'date-fns';
 import {pl} from 'date-fns/locale';
 import {enGB} from "date-fns/locale"
-import {remarkTwitchPlugin} from "@/lib/remarkTwitchPlugin";
+import {remarkTwitchPlugin} from "@/src/lib/markdown/remarkTwitchPlugin";
 
 const formatDate = (dateString: string) => {
     return formatDistanceToNow(new Date(dateString), {
