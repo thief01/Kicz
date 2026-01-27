@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Post from '@/app/feed/post';
 import CreatePost from '@/app/feed/createPost';
+import {getToken} from "@/src/services/authService";
 
 interface PostType {
     id: number;
@@ -19,9 +20,9 @@ async function getPosts(): Promise<PostType[]> {  // ⬅️ Usuń parametr token
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Post/feed`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
-            // ⬅️ Bez Authorization!
-        }
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`
+        },
     });
 
     if (!res.ok) {

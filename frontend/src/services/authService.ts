@@ -17,7 +17,7 @@ export const checkAuthStatus = async(): Promise<boolean> =>
 
     try
     {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVICE_URL}}/api/auth/verify)`,
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify`,
             {
                 method: "GET",
                 headers: {
