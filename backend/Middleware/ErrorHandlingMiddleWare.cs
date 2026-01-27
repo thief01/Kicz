@@ -43,7 +43,7 @@ public class ErrorHandlingMiddleWare
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogWarning(validationEx, "Błąd walidacji: {Message}", validationEx.Message);
+                _logger.LogWarning(validationEx, "Validation error: {Message}", validationEx.Message);
                 break;
 
             case AuthenticationException authEx:
@@ -54,7 +54,7 @@ public class ErrorHandlingMiddleWare
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogWarning(authEx, "Błąd uwierzytelniania: {Message}", authEx.Message);
+                _logger.LogWarning(authEx, "Authentication error: {Message}", authEx.Message);
                 break;
 
             case NotFoundException notFoundEx:
@@ -65,7 +65,7 @@ public class ErrorHandlingMiddleWare
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogWarning(notFoundEx, "Nie znaleziono zasobu: {Message}", notFoundEx.Message);
+                _logger.LogWarning(notFoundEx, "Resource not found: {Message}", notFoundEx.Message);
                 break;
             
             case UnauthorizedException unauthorizedEx:
@@ -76,7 +76,7 @@ public class ErrorHandlingMiddleWare
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogWarning(unauthorizedEx, "Brak autoryzacji: {Message}", unauthorizedEx.Message);
+                _logger.LogWarning(unauthorizedEx, "No authorization: {Message}", unauthorizedEx.Message);
                 break;
 
             case ArgumentException argEx:
@@ -87,18 +87,18 @@ public class ErrorHandlingMiddleWare
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogWarning(argEx, "Nieprawidłowy argument: {Message}", argEx.Message);
+                _logger.LogWarning(argEx, "Invalid argument: {Message}", argEx.Message);
                 break;
 
             default:
                 statusCode = HttpStatusCode.InternalServerError;
                 response = new
                 {
-                    message = "Wystąpił nieoczekiwany błąd",
+                    message = "An unexpected error occurred",
                     statusCode = (int)statusCode,
                     timestamp = DateTime.UtcNow
                 };
-                _logger.LogError(exception, "Nieobsłużony wyjątek: {Message}", exception.Message);
+                _logger.LogError(exception, "Unhandled exception: {Message}", exception.Message);
                 break;
         }
 
