@@ -1,4 +1,4 @@
-import MarkdownPost from "@/components/MarkdownPost";
+import MarkdownPost from "@/src/components/MarkdownPost";
 
 interface PostProps {
     username: string;

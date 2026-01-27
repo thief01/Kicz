@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import {useState} from 'react';
-import MarkdownPost from '@/components/MarkdownPost';
+import MarkdownPost from '@/src/components/MarkdownPost';
 import remarkDirective from "remark-directive";
 import {remarkTwitchPlugin} from "@/lib/remarkTwitchPlugin";
 
