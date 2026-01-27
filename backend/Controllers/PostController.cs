@@ -28,7 +28,7 @@ public class PostController : ControllerBase
     public async Task<IActionResult> GetMyPosts()
     {
         var userId = GetUserId();
-        var posts = _postService.GetMyPosts(userId);
+        var posts = await _postService.GetMyPosts(userId);
         return Ok(posts);
     }
 
@@ -36,7 +36,7 @@ public class PostController : ControllerBase
     [HttpGet("feed")]
     public async Task<IActionResult> GetFeed()
     {
-        var posts = _postService.GetFeed();
+        var posts = await _postService.GetFeed();
         return Ok(posts);
     }
 
@@ -44,7 +44,7 @@ public class PostController : ControllerBase
     public async Task<IActionResult> GetPost(int id)
     {
         var userId = GetUserId();
-        var post = _postService.GetPost(id, userId);
+        var post = await _postService.GetPost(id, userId);
         return Ok(post);
     }
 
@@ -52,7 +52,7 @@ public class PostController : ControllerBase
     public async Task<IActionResult> CreatePost([FromBody] CreatePostDto postDto)
     {
         var userId = GetUserId();
-        var post = _postService.CreatePost(postDto, userId);
+        var post = await _postService.CreatePost(postDto, userId);
         return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
     }
 
@@ -60,7 +60,7 @@ public class PostController : ControllerBase
     public async Task<IActionResult> UpdatePost(int id, [FromBody] UpdatePostDto postDto)
     {
         var userId = GetUserId();
-        var post = _postService.UpdatePost(id, postDto, userId);
+        var post = await _postService.UpdatePost(id, postDto, userId);
         return Ok(post);
     }
     
@@ -68,7 +68,7 @@ public class PostController : ControllerBase
     public async Task<IActionResult> DeletePost(int id)
     {
         var userId = GetUserId();
-        _postService.DeletePost(id, userId);
+        await _postService.DeletePost(id, userId);
         return NoContent();
     }
 
