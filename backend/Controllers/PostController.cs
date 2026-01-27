@@ -31,8 +31,7 @@ public class PostController : ControllerBase
         var posts = await _postService.GetMyPosts(userId);
         return Ok(posts);
     }
-
-    [AllowAnonymous]
+    
     [HttpGet("feed")]
     public async Task<IActionResult> GetFeed()
     {
