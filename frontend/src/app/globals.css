@@ -1,12 +1,17 @@
 /*@import "../../node_modules/tailwindcss/dist/lib.d.mts";*/
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Share+Tech+Mono&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
+
 :root {
-  --font-geist-sans: 'Geist Sans', sans-serif;
-  --font-geist-mono: 'Roboto Mono', monospace; /* przykładowo */
+  --font-bungee: 'Bungee', cursive;       /* dla nagłówków i body */
+  --font-mono: 'Share Tech Mono', monospace; /* dla kodu / inputów */
+
+  /*--font-roboto: "Bungee", sans-serif;*/
 
   --background: #ffffff;
   --foreground: #171717;
@@ -15,8 +20,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /*--font-sans: var(--font-geist-sans);*/
+  /*--font-mono: var(--font-geist-mono);*/
 
 }
 
@@ -27,16 +32,27 @@
   }
 }
 
+h1
+{
+  font-family: var(--font-bungee);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif;*/
+  /*font-family: var(--font-geist-mono), Arial, sans-serif;*/
+  /*font-family: var(--font-geist-sans), sans-serif;*/
+  /*font-family: var(--font-roboto), sans-serif;*/
+  /*font-family: "Courier New", sans-serif;*/
+  /*font-family: "Bungee", sans-serif;*/
+  font-family: var(--font-bungee), sans-serif;
 }
 
 input {
+  font-family: var(--font-mono), monospace;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans);
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
@@ -44,9 +60,9 @@ input {
 
 textarea
 {
+  font-family: var(--font-mono), monospace;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans);
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
