@@ -108,12 +108,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseHttpsRedirection();
+}
 
 
 app.UseCors("AllowFrontend");
-
-// app.UseHttpsRedirection();
-
 app.Use(async (context, next) =>
 {
     Console.WriteLine($"=== REQUEST: {context.Request.Method} {context.Request.Path}");
