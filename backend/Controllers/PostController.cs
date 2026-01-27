@@ -3,6 +3,7 @@ using System.Security.Claims;
 using KichBackendApp.Data;
 using KichBackendApp.Models;
 using KichBackendApp.Models.DTOs.Post;
+using KichBackendApp.Models.Exceptions;
 using KichBackendApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,108 +17,66 @@ namespace KichBackendApp.Controllers;
 [Authorize]
 public class PostController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
-    private readonly UserManager<User>  _userManager;
     private readonly IPostService  _postService;
 
-    public PostController(ApplicationDbContext context, UserManager<User> userManager,  IPostService postService)
+    public PostController(IPostService postService)
     {
-        _context = context;
-        _userManager = userManager;
+        _postService = postService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetMyPosts()
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        var posts = await _context.Posts
-            .Where(p => p.UserId == userId)
-            .Include(p => p.User)
-            .OrderByDescending(p => p.CreatedAt).ToListAsync();
-        return Ok(posts.Select(p => new PostDto(p)));
+        var userId = GetUserId();
+        var posts = _postService.GetMyPosts(userId);
+        return Ok(posts);
     }
 
     [AllowAnonymous]
     [HttpGet("feed")]
     public async Task<IActionResult> GetFeed()
     {
-        var posts = await _context.Posts
-            .Include(p => p.User)  // Żeby mieć dane użytkownika (userDisplayName)
-            .OrderByDescending(p => p.CreatedAt)  // Od najnowszych
-            .ToListAsync();
-        
-        return Ok(posts.Select(p => new PostDto(p)));
+        var posts = _postService.GetFeed();
+        return Ok(posts);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPost(int id)
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        var post = await _context.Posts.Where(p => p.UserId == userId)
-            .FirstOrDefaultAsync(p => p.Id == id);
-
-        if (post == null)
-            return NotFound();
-
-        return Ok(new PostDto(post));
+        var userId = GetUserId();
+        var post = _postService.GetPost(id, userId);
+        return Ok(post);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreatePost([FromBody] CreatePostDto postDto)
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    
-        if (userId == null)
-        {
-            return Unauthorized();
-        }
-        
-        var post = new Post(postDto, userId);
-
-        _context.Posts.Add(post);
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, new PostDto(post));
+        var userId = GetUserId();
+        var post = _postService.CreatePost(postDto, userId);
+        return CreatedAtAction(nameof(GetPost), new { id = post.Id }, post);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePost(int id, [FromBody] UpdatePostDto postDto)
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        if (userId == null)
-            return Unauthorized();
-        
-        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
-
-        if (post == null)
-            return NotFound();
-        
-        post.UpdateFromDto(postDto);
-        await _context.SaveChangesAsync();
-
-        var user = await _userManager.FindByIdAsync(userId!);
-
-        return Ok(new PostDto(post));
+        var userId = GetUserId();
+        var post = _postService.UpdatePost(id, postDto, userId);
+        return Ok(post);
     }
     
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePost(int id)
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        
-        if (userId == null)
-            return Unauthorized();
-            
-        var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
-
-        if (post == null)
-            return NotFound();
-
-        _context.Posts.Remove(post);
-        await _context.SaveChangesAsync();
-
+        var userId = GetUserId();
+        _postService.DeletePost(id, userId);
         return NoContent();
+    }
+
+    private string GetUserId()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null)
+            throw new UnauthorizedException("User not logged in");
+        return userId;
     }
 }
