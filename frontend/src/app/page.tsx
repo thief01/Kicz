@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkAuthStatus } from "@/src/services/authService";
+import { checkAuthStatus } from "@/src/services/auth.service";
 import {useRouter} from "next/navigation";
 
 export default function Home() {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Post from '@/src/app/feed/post';
 import CreatePost from '@/src/app/feed/createPost';
-import {getToken} from "@/src/services/authService";
+import {getToken} from "@/src/utils/token";
 
 interface PostType {
     id: number;
