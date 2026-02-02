@@ -13,7 +13,19 @@ interface LoginInput
     password: string,
 }
 
+interface RegisterInput
+{
+    email: string,
+    password: string,
+    displayName: string,
+}
+
 interface LoginResponse
+{
+    token: string;
+}
+
+interface RegisterResponse
 {
     token: string;
 }
@@ -28,6 +40,19 @@ export const login = async ({email, password}: LoginInput): Promise<LoginRespons
     if(!res.ok) throw new Error(`Failed to login with email ${email}`);
 
     const data: LoginResponse = await res.json();
+    setToken(data.token);
+    return data;
+}
+
+export const register = async ({email, password, displayName}: RegisterInput): Promise<RegisterResponse> =>{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({email, password, displayName}),
+    })
+
+    if(!res.ok) throw new Error(`Failed to register with email ${email}`);
+    const data: RegisterResponse = await res.json();
     setToken(data.token);
     return data;
 }
