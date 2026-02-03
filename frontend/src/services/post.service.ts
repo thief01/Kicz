@@ -22,7 +22,7 @@ export const getPost = async (postId: number): Promise<PostResponse> => {
 export const getFeed = async (): Promise<PostResponse[]> =>
 {
     const token = getToken();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feed/`,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/feed/`,
         {
             method: "GET",
             headers: {
