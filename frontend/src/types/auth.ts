@@ -1,17 +1,29 @@
-﻿export interface AuthResponse
+﻿interface AuthResponse
 {
     isAuthenticated: boolean;
-    userId?: string,
-    userName?: string
+    userId?: string;
+    userName?: string;
 }
 
-export interface LoginInput
+interface LoginInput
 {
     email: string,
     password: string,
 }
 
-export interface LoginResponse
+interface RegisterInput
 {
-    token: string,
+    email: string,
+    password: string,
+    displayName: string,
+}
+
+interface LoginResponse
+{
+    token: string;
+}
+
+interface RegisterResponse
+{
+    token: string;
 }

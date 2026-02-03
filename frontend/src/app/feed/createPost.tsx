@@ -4,6 +4,7 @@ import {useState} from 'react';
 import MarkdownPost from '@/src/components/MarkdownPost';
 import remarkDirective from "remark-directive";
 import {remarkTwitchPlugin} from "@/src/lib/markdown/remarkTwitchPlugin";
+import NewPostForm from "@/src/components/post/NewPostForm";
 
 interface CreatePostProps {
     onPostCreated?: () => void; // Callback po stworzeniu posta
@@ -65,33 +66,6 @@ export default function CreatePost({onPostCreated}: CreatePostProps) {
 
 
     return (
-        <div className="bg-black rounded-lg shadow p-4 mb-6">
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Wklej markdown tutaj..."
-                    rows={10}
-                    style={{
-                        width: '100%',
-                        whiteSpace: 'pre-wrap' // Ważne!
-                    }}
-                />
-
-                {error && (
-                    <p className="text-red-500 text-sm mt-2">{error}</p>
-                )}
-
-                <div className="flex justify-end mt-3">
-                    <button
-                        type="submit"
-                        disabled={loading || !content.trim()}
-                        className="bg-green-500text-white px-6 py-2 rounded-lg hover:bg-green-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
-                    >
-                        {loading ? 'Wysyłanie...' : 'Opublikuj'}
-                    </button>
-                </div>
-            </form>
-        </div>
+        <NewPostForm/>
     );
 }

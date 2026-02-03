@@ -1,4 +1,4 @@
-import MarkdownPost from "@/src/components/MarkdownPost";
+﻿import MarkdownPost from "@/src/components/MarkdownPost";
 
 interface PostProps {
     username: string;
@@ -21,7 +21,7 @@ const formatDate = (dateString: string) => {
     });
 };
 
-export default function Post({username, message, createdAt}: PostProps) {
+export default function PostForm({username, message, createdAt}: PostProps) {
     return (
         <div className="border rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex justify-between">

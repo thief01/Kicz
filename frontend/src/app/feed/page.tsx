@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Post from '@/src/app/feed/post';
+import PostForm from "@/src/components/post/PostForm";
 import CreatePost from '@/src/app/feed/createPost';
 import {getToken} from "@/src/utils/token";
 
@@ -68,6 +68,7 @@ export default function Home() {
     return (
         <div className="container mx-auto p-4 max-w-2xl">
             <h1 className="text-2xl font-bold mb-6">Feed</h1>
+            <CreatePost/>
 
             {/* Pokaż formularz tylko zalogowanym */}
             {isLoggedIn && <CreatePost onPostCreated={handlePostCreated} />}
@@ -76,7 +77,7 @@ export default function Home() {
                 <p className="text-gray-500 text-center">Brak postów</p>
             ) : (
                 posts.map((post) => (
-                    <Post
+                    <PostForm
                         key={post.id}
                         username={post.userDisplayName}
                         message={post.content}
