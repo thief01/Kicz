@@ -1,12 +1,12 @@
-﻿interface PostResponse
+﻿export interface PostResponse
 {
-    Id: number;
-    Content: string;
-    ImageUrl: string;
-    CreatedAt: string;
-    ScheduledFor: string;
-    IsPublished: boolean;
-    UserId: string;
+    id: number;
+    content: string;
+    imageUrl: string;
+    createdAt: string;
+    scheduledFor: string;
+    isPublished: boolean;
+    userId: string;
     UserDisplayName: string;
 }
 

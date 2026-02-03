@@ -1,6 +1,7 @@
 ﻿import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {getFeed} from "@/src/services/post.service";
+import {PostResponse} from "@/src/types/post";
 
 export function useFeed() {
     const [posts, setPosts] = useState<PostResponse[]>([]);
@@ -10,7 +11,8 @@ export function useFeed() {
     const fetchPosts = async () =>
     {
         try {
-            await getFeed();
+            const data = await getFeed();
+            setPosts(data);
             setLoading(false);
         }
         catch

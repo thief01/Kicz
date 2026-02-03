@@ -13,6 +13,7 @@ import {formatDistanceToNow} from 'date-fns';
 import {pl} from 'date-fns/locale';
 import {enGB} from "date-fns/locale"
 import {remarkTwitchPlugin} from "@/src/lib/markdown/remarkTwitchPlugin";
+import {PostResponse} from "@/src/types/post";
 
 type PostFormProps = {
     postResponse: PostResponse
@@ -30,12 +31,12 @@ export default function PostForm({postResponse}: PostFormProps) {
         <div className="border rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex justify-between">
                 <div className="font-bold text-lg mb-2">{postResponse.UserDisplayName}</div>
-                <div className="text-gray-500 text-sm mb-2">{formatDate(postResponse.CreatedAt)}</div>
+                <div className="text-gray-500 text-sm mb-2">{formatDate(postResponse.createdAt)}</div>
             </div>
             <ReactMarkdown
                 remarkPlugins={[remarkDirective, remarkTwitchPlugin]}
             >
-                {postResponse.Content}
+                {postResponse.content}
             </ReactMarkdown>
         </div>
     );
