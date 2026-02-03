@@ -12,14 +12,11 @@ export default function Feed() {
     const {posts, error, loading, refetch} = useFeed();
 
     const [isLoggedIn] = useState(() => {
-        if (typeof window === 'undefined') return false;
         refetch();
-        return !!localStorage.getItem('token');
+        return !!getToken();
     });
     if (loading) return <div className="p-4">Loading...</div>;
     if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
-
-
 
     return (
         <div className="container mx-auto p-4 max-w-2xl">

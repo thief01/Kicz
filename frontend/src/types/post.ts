@@ -7,6 +7,6 @@
     scheduledFor: string;
     isPublished: boolean;
     userId: string;
-    UserDisplayName: string;
+    userDisplayName: string;
 }
 

@@ -30,7 +30,7 @@ export default function PostForm({postResponse}: PostFormProps) {
     return (
         <div className="border rounded-lg p-4 mb-4 shadow-sm">
             <div className="flex justify-between">
-                <div className="font-bold text-lg mb-2">{postResponse.UserDisplayName}</div>
+                <div className="font-bold text-lg mb-2">{postResponse.userDisplayName}</div>
                 <div className="text-gray-500 text-sm mb-2">{formatDate(postResponse.createdAt)}</div>
             </div>
             <ReactMarkdown
