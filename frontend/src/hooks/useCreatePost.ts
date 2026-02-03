@@ -13,9 +13,11 @@ export function useCreatePost() {
 
         try {
             await createPost(content, imageUrl);
+            return true;
         }
         catch {
             setError(error);
+            return false;
         }
         finally {
             setLoading(false);

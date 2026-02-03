@@ -3,14 +3,18 @@
 import { useState} from "react";
 import {useCreatePost} from "@/src/hooks/useCreatePost";
 
-
-export default function NewPostForm() {
+export default function NewPostForm({ onSuccess }: { onSuccess?: () => void }) {
     const [content, setContent] = useState("");
     const {handleCreatePost, error, loading} = useCreatePost()
 
-    const onSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        handleCreatePost(content, "")
+        const success = await handleCreatePost(content, "")
+        if(success)
+        {
+            setContent('')
+            onSuccess?.()
+        }
     }
 
     return (

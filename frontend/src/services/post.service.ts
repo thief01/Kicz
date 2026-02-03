@@ -21,7 +21,7 @@ export const getPost = async (postId: number): Promise<PostResponse> => {
 
 export const createPost = async(content: string, imageUrl: string): Promise<PostResponse> => {
     const token = getToken();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`,
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post`,
         {
             method: "POST",
             headers: {

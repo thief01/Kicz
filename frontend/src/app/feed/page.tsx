@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import PostForm from "@/src/components/post/PostForm";
-import CreatePost from '@/src/app/feed/createPost';
 import {getToken} from "@/src/utils/token";
+import NewPostForm from "@/src/components/post/NewPostForm";
 
 interface PostType {
     id: number;
@@ -68,10 +68,9 @@ export default function Home() {
     return (
         <div className="container mx-auto p-4 max-w-2xl">
             <h1 className="text-2xl font-bold mb-6">Feed</h1>
-            <CreatePost/>
 
             {/* Pokaż formularz tylko zalogowanym */}
-            {isLoggedIn && <CreatePost onPostCreated={handlePostCreated} />}
+            {isLoggedIn && <NewPostForm onSuccess={handlePostCreated} />}
 
             {posts.length === 0 ? (
                 <p className="text-gray-500 text-center">Brak postów</p>
