@@ -5,7 +5,6 @@ import {getPost} from "@/src/services/post.service";
 export function useGetPost() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
 
     const handleGetPost = async (id: number) => {
         try {
