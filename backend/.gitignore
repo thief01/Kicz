@@ -2,3 +2,4 @@ Bin/
 .idea/
 node_modules/
 obj/
+app.db
