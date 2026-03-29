@@ -1,4 +1,5 @@
 ﻿import {getToken} from "@/src/utils/token";
+import { PostResponse } from "@/src/types/post";
 
 
 
