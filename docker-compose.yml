@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Jwt__Key=twoj_sekretny_klucz_min_32_znaki
+      - Jwt__Issuer=http://localhost:8080
+      - Jwt__Audience=http://localhost:3000
+    volumes:
+      - ./backend/data:/app/data
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - backend
