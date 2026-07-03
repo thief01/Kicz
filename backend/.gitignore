@@ -3,3 +3,4 @@ Bin/
 node_modules/
 obj/
 app.db
+.env
