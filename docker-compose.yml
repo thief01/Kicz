@@ -1,10 +1,9 @@
 services:
   backend:
     build: ./backend
-    ports:
-      - "8000:8000"
+    container_name: kicz-backend
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - Jwt__Key=${JWT_KEY}
       - Jwt__Issuer=${JWT_ISSUER}
       - Jwt__Audience=${JWT_AUDIENCE}
@@ -12,16 +11,18 @@ services:
       - ./backend/data:/app/data
     networks:
       - proxy
+
   frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=${API_URL}
+    build:
+      context: ./frontend
+      args:
+        - NEXT_PUBLIC_API_URL=${API_URL}
+    container_name: kicz-frontend
     depends_on:
       - backend
     networks:
       - proxy
+
 networks:
   proxy:
     external: true
