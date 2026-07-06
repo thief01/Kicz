@@ -12,6 +12,9 @@ git clone
 cd Kich
 
 // run docker
+docker compose -f docker-compose-dev.yml up
+
+// or for prod (Traefik or Nginx configuration needed)
 docker compose up
 
 // visit this URL to create your account
