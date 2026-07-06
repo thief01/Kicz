@@ -32,7 +32,10 @@ export default function Navbar() {
                         <Link href="/auth/register" className="link-button link-button-primary">Register</Link>
                     </>
                 ) : (
-                    <Link href="/auth/profile" className="link-button link-button-primary">Profile</Link>
+                    <>
+                        <Link href="/auth/profile" className="link-button link-button-primary">Profile</Link>
+                        <Link href="/auth/logout" className="link-button link-button-primary">Logout</Link>
+                    </>
                 )}
             </div>
         </nav>
