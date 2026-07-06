@@ -12,14 +12,9 @@ export default function Home() {
 
   useEffect(() => {
     const verifyAndRedirect = async () => {
-      const isAuthenticated = await checkAuthStatus();
+      // const isAuthenticated = await checkAuthStatus();
 
-      if (isAuthenticated) {
-        router.push('/feed');
-      } else {
-        router.push('/login');
-      }
-
+      router.push('/feed');
       setLoading(false);
     };
     verifyAndRedirect();
