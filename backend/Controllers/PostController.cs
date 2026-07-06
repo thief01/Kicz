@@ -32,6 +32,7 @@ public class PostController : ControllerBase
         return Ok(posts);
     }
     
+    [AllowAnonymous]
     [HttpGet("feed")]
     public async Task<IActionResult> GetFeed()
     {
