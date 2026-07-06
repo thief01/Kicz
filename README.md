@@ -12,6 +12,9 @@ git clone
 cd Kich
 
 // run docker
+docker compose -f docker-compose-dev.yml up
+
+// or for prod (Traefik or Nginx configuration needed)
 docker compose up
 
 // visit this URL to create your account
@@ -26,6 +29,8 @@ localhost:8000/swagger/index.html
 ```
 
 # Quick Look
+
+[Example Kicz APP](https://kicz.mimigames.pl/feed)
 
 ## Register page
 <img width="552" height="325" alt="image" src="https://github.com/user-attachments/assets/be397051-cd18-488d-a74d-567cecc93dfd" />
