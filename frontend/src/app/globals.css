@@ -63,3 +63,33 @@ textarea
   border: 1px solid #ccc;
   border-radius: 0.25rem;
 }
+
+/* globals.css */
+
+.btn {
+  @apply text-white px-6 py-2 rounded-lg transition;
+}
+
+.btn-primary {
+  @apply bg-gray-700 hover:bg-green-600;
+}
+
+.btn-error {
+  @apply bg-red-700 hover:bg-green-600;
+}
+
+.btn:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
+
+.link-button {
+  @apply inline-block text-white px-6 py-2 rounded-lg transition;
+}
+
+.link-button-primary {
+  @apply bg-gray-700 hover:bg-green-600;
+}
+
+.link-button-secondary {
+  @apply bg-gray-600 hover:bg-gray-700;
+}

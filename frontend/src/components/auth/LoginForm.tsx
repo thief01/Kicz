@@ -2,7 +2,7 @@
 
 import {useState} from "react";
 import {useLogin} from '@/src/hooks/useLogin'
-import Navbar from "@/src/components/General/Navbar";
+import Navbar from "@/src/components/general/Navbar";
 
 
 export default function LoginForm() {
@@ -37,7 +37,7 @@ export default function LoginForm() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                    className="btn btn-primary"
                 >
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
