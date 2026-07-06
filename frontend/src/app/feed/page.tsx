@@ -18,8 +18,8 @@ export default function Feed() {
         async function load() {
             const result = await checkAuthStatus();
             setIsAuthenticated(result);
-            load();
         }
+        load();
     }, []);
 
     const [isLoggedIn] = useState(() => {

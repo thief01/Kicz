@@ -12,8 +12,8 @@ export default function Navbar() {
         async function load() {
             const result = await checkAuthStatus();
             setIsAuthenticated(result);
-            load();
         }
+        load();
     }, []);
     return (
         <nav className="relative flex items-center p-2.5 bg-gray-800">

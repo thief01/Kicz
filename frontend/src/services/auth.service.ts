@@ -27,6 +27,10 @@ export const register = async ({email, password, displayName}: RegisterInput): P
     return data;
 }
 
+export const logout = async (): Promise<void> => {
+    await removeToken();
+}
+
 export const checkAuthStatus = async(): Promise<boolean> =>
 {
     const token = getToken();
