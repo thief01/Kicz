@@ -33,10 +33,10 @@ localhost:8000/swagger/index.html
 [Example Kicz APP](https://kicz.mimigames.pl/feed)
 
 ## Register page
-<img width="552" height="325" alt="image" src="https://github.com/user-attachments/assets/be397051-cd18-488d-a74d-567cecc93dfd" />
+<img width="897" height="1273" alt="image" src="https://github.com/user-attachments/assets/d1a80aed-dfaa-470a-9f39-6b316c9ce903" />
 
 ## Feed page 1
-<img width="728" height="584" alt="image" src="https://github.com/user-attachments/assets/bfba1d56-14af-4926-9fe3-bd995bc5bbcd" />
+<img width="904" height="1279" alt="image" src="https://github.com/user-attachments/assets/bfdb7cd0-0e6c-4ef5-a818-c44a19e47178" />
 
 ## Feed page 2
 <img width="728" height="703" alt="image" src="https://github.com/user-attachments/assets/0d7eba3e-03df-447e-9817-05f9b093757f" />
