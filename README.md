@@ -11,6 +11,14 @@ git clone
 // change folder
 cd Kich
 
+// configure local env
+
+JWT_KEY=YOUR_JWT_KEY
+JWT_ISSUER=localhost:8000
+JWT_AUDIENCE=localhost:3000
+API_URL=localhost:8000
+
+
 // run docker
 docker compose -f docker-compose-dev.yml up
 
