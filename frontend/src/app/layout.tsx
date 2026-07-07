@@ -34,7 +34,7 @@ export default function RootLayout({
         <html lang="en">
 
         <body
-            className={`${spaceGrotesk.className} ${spaceGrotesk.className} antialiased`}
+            className={`${spaceGrotesk.className} ${spaceGrotesk.className} antialiased min-h-screen flex flex-col`}
         >
         <Navbar/>
         <main className="flex-1">

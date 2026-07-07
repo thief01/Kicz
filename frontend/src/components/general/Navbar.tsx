@@ -16,16 +16,16 @@ export default function Navbar() {
         load();
     }, []);
     return (
-        <nav className="relative flex items-center p-2.5 bg-gray-800">
+        <nav className="relative bottom-0 flex items-center p-2.5 bg-gray-800">
             <div className="flex-1">
-                <div>KICZ</div>
+                <h1 className="text-2xl font-bold ml-6">KICZ</h1>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 flex gap-10">
                 <Link href="/feed" className="link-button link-button-primary">Feed</Link>
             </div>
 
-            <div className="flex flex-1 justify-end gap-6">
+            <div className="flex flex-1 justify-end gap-6 mr-6">
                 {!isAuthenticated ? (
                     <>
                         <Link href="/auth/login" className="link-button link-button-primary">Login</Link>
