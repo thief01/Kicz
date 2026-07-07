@@ -8,13 +8,13 @@ import {usePathname} from "next/navigation";
 export default function Navbar() {
     const pathName = usePathname();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     useEffect(() => {
-        async function load() {
-            const result = await checkAuthStatus();
-            setIsAuthenticated(result);
-        }
-        load();
-    }, []);
+        checkAuthStatus()
+            .then(setIsAuthenticated);
+    }, [pathName]);
+
+
     return (
         <nav className="relative bottom-0 flex items-center p-2.5 bg-gray-800">
             <div className="flex-1">

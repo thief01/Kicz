@@ -3,9 +3,11 @@
 import {useState} from "react";
 import {useLogin} from '@/src/hooks/useLogin'
 import Navbar from "@/src/components/general/Navbar";
+import {useRouter} from "next/navigation";
 
 
 export default function LoginForm() {
+    const router = useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const {handleLogin, error, loading} = useLogin()
@@ -13,6 +15,7 @@ export default function LoginForm() {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         handleLogin(email, password)
+        router.refresh();
     }
 
     return (
