@@ -1,7 +1,7 @@
 ﻿export function TwitchClip({ clipId }: { clipId: string }) {
     return (
         <iframe
-            src={`https://clips.twitch.tv/embed?clip=${clipId}&parent=${process.env.HOST}`}
+            src={`https://clips.twitch.tv/embed?clip=${clipId}&parent=${process.env.NEXT_PUBLIC_HOST}`}
             width={620}
             height={378}
             allowFullScreen
