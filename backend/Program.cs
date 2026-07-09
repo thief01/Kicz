@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=/app/data/app.db"));
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
