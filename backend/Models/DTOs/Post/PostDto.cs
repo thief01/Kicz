@@ -1,6 +1,6 @@
 ﻿namespace KichBackendApp.Models.DTOs.Post;
 
-public class PostDto
+public record PostDto
 {
     public int Id { get; set; }
     public string Content { get; set; } = string.Empty;

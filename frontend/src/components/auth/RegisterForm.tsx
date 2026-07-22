@@ -2,25 +2,20 @@
 
 import {useState} from "react";
 import {useRegister} from "@/src/hooks/useRegister";
-import {useRouter} from "next/navigation";
+import {useCheckAuth} from "@/src/hooks/useCheckAuth";
 
 export default function RegisterForm()
 {
-    const router = useRouter();
+    useCheckAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [displayName, setDisplayName] = useState("");
     const {handleRegister, error, loading} = useRegister();
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) =>{
-        const register = async () => {
-            e.preventDefault()
-            await handleRegister(email, password, displayName)
 
-            router.refresh();
-            router.replace("/feed")
-        }
-        register();
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+        await handleRegister(email, password, displayName);
     }
 
     return (

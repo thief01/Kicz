@@ -1,6 +1,6 @@
 ﻿namespace KichBackendApp.Models.DTOs.Auth;
 
-public class RegisterDto
+public record RegisterDto
 {
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;

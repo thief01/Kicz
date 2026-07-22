@@ -2,11 +2,13 @@
 
 import {useState} from "react";
 import {useLogin} from '@/src/hooks/useLogin'
-import Navbar from "@/src/components/general/Navbar";
 import {useRouter} from "next/navigation";
+import {useCheckAuth} from "@/src/hooks/useCheckAuth";
 
 
 export default function LoginForm() {
+    useCheckAuth();
+
     const router = useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

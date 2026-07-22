@@ -2,7 +2,7 @@
 
 namespace KichBackendApp.Models;
 
-public class Post
+public record Post
 {
     public int Id { get; set; }
     public string Content { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace KichBackendApp.Models.DTOs.Comment;
 
-public class CreateCommentDto
+public record CreateCommentDto
 {
     public int PostId { get; set; }
     public string Author { get; set; } = string.Empty;
