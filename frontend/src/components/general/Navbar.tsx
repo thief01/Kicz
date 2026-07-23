@@ -18,7 +18,7 @@ export default function Navbar() {
     return (
         <nav className="relative bottom-0 flex items-center p-2.5 bg-gray-800">
             <div className="flex-1">
-                <h1 className="text-2xl font-bold ml-6">KICZ</h1>
+                <h1 className="text-2xl font-bold ml-6">JFN</h1>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 flex gap-10">

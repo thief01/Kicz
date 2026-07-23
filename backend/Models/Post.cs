@@ -8,7 +8,9 @@ public record Post
     public string Content { get; set; }
     public string? ImageUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public DateTime? ScheduledFor { get; set; }
+    public bool IsModified => CreatedAt != ModifiedAt;
     public bool IsPublished { get; set; } = false;
     public string UserId { get; set; } = string.Empty;
     public User User { get; set; } = null!;
@@ -40,5 +42,7 @@ public record Post
         
         if(dto.IsPublished.HasValue)
             IsPublished = dto.IsPublished.Value;
+        
+        ModifiedAt = DateTime.UtcNow;
     }
 }

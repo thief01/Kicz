@@ -7,6 +7,8 @@ public record PostDto
     public string? ImageUrl { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? ScheduledFor { get; set; }
+    public DateTime ModifiedAt { get; set; }
+    public bool IsModified { get; set; }
     public bool ? IsPublished { get; set; }
     public string UserId { get; set; } = string.Empty;
     public string UserDisplayName { get; set; } = string.Empty;
@@ -26,5 +28,7 @@ public record PostDto
         IsPublished = post.IsPublished;
         UserId = post.UserId;
         UserDisplayName = post.User?.DisplayName ?? "";
+        ModifiedAt = post.ModifiedAt;
+        IsModified = post.IsModified;
     }
 }

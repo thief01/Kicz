@@ -1,9 +1,12 @@
 using System.Text;
+using System.Text.Json;
 using KichBackendApp.Data;
+using KichBackendApp.Integrations.Twitch;
 using KichBackendApp.Middleware;
 using KichBackendApp.Models;
 using KichBackendApp.Services;
 using KichBackendApp.Services.Interfaces;
+using KichBackendApp.Workers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,7 +66,31 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+    });
+
+builder.Services.AddHttpClient<TwitchAuthClient>(client =>
+{
+    client.BaseAddress = new Uri(
+        "https://id.twitch.tv/"
+    );
+});
+
+
+builder.Services.AddHttpClient<TwitchApiClient>(client =>
+{
+    client.BaseAddress = new Uri(
+        "https://api.twitch.tv/"
+    );
+});
+
+
+builder.Services.AddScoped<TwitchService>();
+builder.Services.AddHostedService<TwitchWorker>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
