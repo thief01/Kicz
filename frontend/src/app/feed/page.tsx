@@ -8,7 +8,6 @@ import {getToken} from "@/src/utils/token";
 import LoaderCircle from "@/src/components/general/Loader";
 import {checkAuthStatus} from "@/src/services/auth.service";
 
-
 export default function Feed() {
 
     const {posts, error, loading, refetch} = useFeed();
@@ -33,8 +32,7 @@ export default function Feed() {
     return (
         <div className="container mx-auto p-4 max-w-2xl">
             <h1 className="text-2xl font-bold mb-6 text-center">FEED</h1>
-
-            {isAuthenticated && <NewPostForm onSuccess={refetch} />}
+            {isAuthenticated && <NewPostForm onSuccess={refetch}/>}
 
             {posts.length === 0 ? (
                 <p className="text-gray-500 text-center text-2xl">Not found posts :(</p>

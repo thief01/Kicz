@@ -22,7 +22,13 @@ export default function Navbar() {
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 flex gap-10">
-                <Link href="/feed" className="link-button link-button-primary">Feed</Link>
+                <Link href="/feed" className="link-button link-button-primary">
+                    Feed
+                </Link>
+
+                <Link href="/stream" className="link-button link-button-primary">
+                    Streams
+                </Link>
             </div>
 
             <div className="flex flex-1 justify-end gap-6 mr-6">
