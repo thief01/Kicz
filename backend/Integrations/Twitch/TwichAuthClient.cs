@@ -46,7 +46,12 @@ public class TwitchAuthClient
             ])
         );
 
-
+        var responseBody = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException(
+                $"Twitch OAuth access token returned {response.StatusCode}: {responseBody}");
+        }
         response.EnsureSuccessStatusCode();
 
 

@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
+DotNetEnv.Env.Load(
+    Path.Combine(Directory.GetCurrentDirectory(), ".env"));
+
 var builder = WebApplication.CreateBuilder(args);
 var isDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
 var dbPath = isDocker ? "/app/data/app.db" :
@@ -66,7 +69,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
-
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
 builder.Services.AddControllers()
