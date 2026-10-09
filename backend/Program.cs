@@ -15,6 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+var isDocker = Environment.GetEnvironmentVariable("RUNNING_IN_DOCKER") == "true";
+var dbPath = isDocker ? "/app/data/app.db" :
+    Path.Combine("Data", "app.db");
 
 builder.Services.AddCors(options =>
 {
@@ -27,7 +30,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=/app/data/app.db"));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=" + dbPath));
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -127,6 +130,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseMiddleware<ErrorHandlingMiddleWare>();
 
