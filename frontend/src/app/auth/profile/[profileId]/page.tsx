@@ -2,7 +2,7 @@
 
 interface PageProps {
     params: Promise<{
-        postId: string
+        profileId: string
     }>
 }
 
